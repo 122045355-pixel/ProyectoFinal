@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Expedientes · Control documental{% endblock %}
+{% block content %}
+<section class="hero">
+  <div><p class="eyebrow">Trazabilidad judicial</p><h1>Expedientes de nulidad matrimonial</h1><p>Las versiones se almacenan cifradas, comprimidas y sin sobrescritura.</p></div>
+  <div class="role-chip">{{ current_user.role }}</div>
+</section>
+<section class="grid two">
+  <article class="panel">
+    <div class="section-title"><h2>Expedientes visibles</h2><span>{{ cases|length }}</span></div>
+    {% for case in cases %}
+      <a class="case-row" href="{{ url_for('case_detail', case_id=case.id) }}"><div><strong>{{ case.folio }}</strong><span>{{ case.title }}</span></div><span class="status {{ case.status }}">{{ case.status }}</span></a>
+    {% else %}<p class="empty">No hay expedientes disponibles para tu rol.</p>{% endfor %}
+  </article>
+  <article class="panel">
+    <div class="section-title"><h2>Documentos recientes</h2><span>{{ documents|length }}</span></div>
+    {% for document in documents[:6] %}
+      <a class="case-row" href="{{ url_for('document_detail', document_id=document.id) }}"><div><strong>{{ document.title }}</strong><span>{{ document.kind }} · caso {{ document.case_id }}</span></div>{% if document.contains_sensitive_data %}<span class="sensitive">sensible</span>{% endif %}</a>
+    {% else %}<p class="empty">Aún no hay documentos registrados.</p>{% endfor %}
+  </article>
+</section>
+{% endblock %}

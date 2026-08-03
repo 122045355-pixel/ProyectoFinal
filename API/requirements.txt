@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pymysql
+python-dotenv
+python-jose[cryptography]
+bcrypt
+slowapi
+email-validator
+cryptography
+pydantic-settings
+python-multipart
+prometheus-fastapi-instrumentator
